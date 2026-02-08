@@ -1,6 +1,6 @@
 
 import wordsData from './data/words.json';
-import type{ GameState, CardType, Team, CardRole } from './types';
+import type { GameState, CardType, Team, CardRole } from './types';
 
 const TOTAL_CARDS = 25;
 const RED_CARDS = 9;
@@ -105,6 +105,17 @@ export function selectCard(currentState: GameState, cardIndex: number): GameStat
       newState.currentTeam = opponentTeam;
       break;
   }
+
+  return newState;
+}
+
+export function passTurn(currentState: GameState): GameState {
+  if (currentState.gameOver) {
+    return currentState;
+  }
+
+  const newState = JSON.parse(JSON.stringify(currentState)) as GameState;
+  newState.currentTeam = newState.currentTeam === 'red' ? 'blue' : 'red';
 
   return newState;
 }

@@ -1,8 +1,8 @@
 
 import { useState, useEffect } from 'react';
 import Board from './components/Board';
-import type{ GameState } from './types';
-import { createNewGame, selectCard } from './gameLogic';
+import type { GameState } from './types';
+import { createNewGame, selectCard, passTurn } from './gameLogic';
 import './App.css';
 import './GameInfo.css';
 
@@ -39,6 +39,10 @@ function App() {
     setGameState(newState);
   };
 
+  const handlePassTurn = () => {
+    setGameState(passTurn(gameState));
+  };
+
   const toggleViewMode = () => {
     setGameState(prev => ({
       ...prev,
@@ -55,6 +59,9 @@ function App() {
         <div className="controls">
           <button onClick={toggleViewMode}>
             {viewMode === 'agent' ? 'スパイマスター表示' : 'エージェント表示'}
+          </button>
+          <button onClick={handlePassTurn} disabled={gameOver}>
+            パス
           </button>
           <button onClick={handleNewGame}>
             新規ゲーム
@@ -76,7 +83,7 @@ function App() {
           <p>{winner ? `${winner.toUpperCase()} チームの勝利！` : 'エラー'}</p>
         </div>
       )}
-      
+
       <main>
         <Board board={board} viewMode={viewMode} onCardClick={handleCardClick} />
       </main>
