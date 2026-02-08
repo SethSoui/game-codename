@@ -1,0 +1,80 @@
+
+:root {
+  --red-team: #d64545;
+  --blue-team: #3b6bd6;
+  --neutral-card: #c9c9c9;
+  --assassin-card: #222222;
+  --card-background: #f0f0f0;
+  --card-revealed-text: #ffffff;
+}
+
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  padding: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  user-select: none;
+  border: 2px solid transparent;
+  padding: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card-word {
+  word-break: break-all;
+}
+
+/* Revealed Cards */
+.card.revealed {
+  cursor: default;
+  color: var(--card-revealed-text);
+  transform: none;
+  box-shadow: none;
+}
+
+.card.revealed.red { background-color: var(--red-team); }
+.card.revealed.blue { background-color: var(--blue-team); }
+.card.revealed.neutral { background-color: var(--neutral-card); }
+.card.revealed.assassin { background-color: var(--assassin-card); }
+
+/* Spymaster Hints */
+.card.spymaster-hint {
+  border-width: 3px;
+  border-style: solid;
+}
+.card.spymaster-hint.red { border-color: var(--red-team); }
+.card.spymaster-hint.blue { border-color: var(--blue-team); }
+.card.spymaster-hint.neutral { border-color: var(--neutral-card); }
+.card.spymaster-hint.assassin { border-color: var(--assassin-card); }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .board-grid {
+    gap: 5px;
+    padding: 5px;
+  }
+  .card {
+    font-size: 0.8rem;
+    border-radius: 5px;
+  }
+}

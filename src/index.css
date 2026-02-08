@@ -1,0 +1,17 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  /* 
+    font-family, background-color など、より具体的なスタイルは
+    App.css や他のCSSファイルで設定します。
+  */
+}
