@@ -9,3 +9,47 @@ GitHub Pages上で動かせるなら、遊ぶ用に挙げておきたい。
 また、このファイルを元にitoも作成して挙げたい。
 
 
+・githubについて
+ー作業を始めるときはブランチを切る
+# 1. まずメインのブランチに移動します
+git checkout main
+# 2. リモート（GitHub）の最新状態を取り込みます（念のため）
+git pull origin main
+# 3. 新しいブランチを作って、そこに移動します
+# 名前は "feature/機能名" などが分かりやすいです
+git checkout -b feature/pass-button
+
+ーこまめに保存する
+# 変更されたファイルを確認
+git status
+# 全ての変更をステージング（コミット準備）
+git add .
+# コミット（メッセージは分かりやすく）
+git commit -m "パスボタンのUIを追加"
+
+ー反映させる
+# 1. メインブランチに戻ります
+git checkout main
+# 2. 作成したブランチの内容を main に取り込みます（マージ）
+git merge feature/pass-button
+# 3. GitHubにアップロードします
+git push origin main
+# 4. (任意) 使い終わった作業ブランチは削除してもOKです
+git branch -d feature/pass-button
+
+ー戻したいとき
+1.addやcommitする前
+# 全ての変更を破棄して、前回のコミットの状態に戻す
+git restore .
+# (古いGitの場合は git checkout . )
+2.直前のコミット消したい
+# 直前のコミットを1つ取り消す（変更したファイルの中身はそのまま残る）
+git reset --soft HEAD^
+# 直前のコミットを1つ取り消す（変更したファイルの中身も全部消える！注意！）
+git reset --hard HEAD^
+3.特定のコミットに戻りたい
+# 1. 履歴を見て戻りたい場所のID（ハッシュ値）を確認
+git log --oneline
+# 2. その時点まで強制的に戻る（それ以降の作業は消えます）
+git reset --hard <コミットID>
+
