@@ -1,0 +1,52 @@
+# GitHub Actionsの名前
+name: Deploy to GitHub Pages
+
+# このActionが実行されるタイミングを指定
+on:
+  # mainブランチにpushされたときに実行
+  push:
+    branches:
+      - main
+  # GitHubのActionsタブから手動で実行することも可能にする
+  workflow_dispatch:
+
+# Actionが実行するJob（タスク）の権限設定
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 実行するJobを定義
+jobs:
+  # build（ビルド）とdeploy（デプロイ）という2つのJobを定義
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # package.jsonなどと合わせる
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
