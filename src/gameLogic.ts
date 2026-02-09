@@ -22,7 +22,8 @@ export function createNewGame(): GameState {
   const gameWords = shuffledWords.slice(0, TOTAL_CARDS);
 
   const firstTeam: Team = Math.random() < 0.5 ? 'red' : 'blue';
-  const secondTeam: Team = firstTeam === 'red' ? 'blue' : 'red';
+  //下のは現状使わない
+  // const secondTeam: Team = firstTeam === 'red' ? 'blue' : 'red';
 
   const redCardCount = firstTeam === 'red' ? RED_CARDS : BLUE_CARDS;
   const blueCardCount = firstTeam === 'blue' ? RED_CARDS : BLUE_CARDS;
